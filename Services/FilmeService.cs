@@ -46,5 +46,27 @@ namespace SistemaDeRecomendacao.Services
             }
             return filmes;
         }
+
+        public static List<Filme> BuscarFilmesComEssesGeneros(List<Genero> generos, List<Filme> filmes)
+        {
+            var filmesComEssesGeneros = new List<Filme>();
+            foreach (var genero in generos)
+            {
+                for (int i = 0; i < filmes.Count; i++)
+                {
+                    for (int j = 0; j < filmes[i].Generos.Count; j++)
+                    {
+                        if (genero.Nome == filmes[i].Generos[j].Nome)
+                        {
+                            if (!filmesComEssesGeneros.Contains(filmes[i]))
+                            {
+                                filmesComEssesGeneros.Add(filmes[i]);
+                            }
+                        }
+                    }
+                }
+            }
+            return filmesComEssesGeneros;
+        }
     }
 }
