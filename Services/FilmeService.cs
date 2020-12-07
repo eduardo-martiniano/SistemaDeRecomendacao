@@ -70,3 +70,25 @@ namespace SistemaDeRecomendacao.Services
         }
     }
 }
+        public static Filme BuscarFilmePorId(int id, List<Filme> filmes)
+            {
+                return filmes.Where(f => f.Id == id).FirstOrDefault();
+            }
+
+        public static void PrintarFilme(Filme filme)
+        {
+            var generos = "";
+
+            foreach (var item in filme.Generos)
+            {
+                generos = generos + $"{item.Nome}, ";
+            }
+            Console.WriteLine("============================================");
+            Console.WriteLine($"Filme assistido: {filme.Titulo}\nAvaliação: {filme.Avaliacao}\nGenero: {generos}");
+            Console.WriteLine("============================================");
+        }
+        public static Filme BuscaPorNome(string nome, List<Filme> filmes)
+        {
+            return filmes.Where(x => x.Titulo == nome).FirstOrDefault();
+        }
+}
