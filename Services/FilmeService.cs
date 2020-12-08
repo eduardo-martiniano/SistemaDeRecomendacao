@@ -7,7 +7,7 @@ using System.Text;
 
 namespace SistemaDeRecomendacao.Services
 {
-    public class FilmeService
+    public static class FilmeService
     {
         public static List<Filme> CarregarFilmes(string path)
         {
@@ -68,13 +68,10 @@ namespace SistemaDeRecomendacao.Services
             }
             return filmesComEssesGeneros;
         }
-    }
-}
         public static Filme BuscarFilmePorId(int id, List<Filme> filmes)
-            {
-                return filmes.Where(f => f.Id == id).FirstOrDefault();
-            }
-
+        {
+            return filmes.Where(f => f.Id == id).FirstOrDefault();
+        }
         public static void PrintarFilme(Filme filme)
         {
             var generos = "";
@@ -87,8 +84,23 @@ namespace SistemaDeRecomendacao.Services
             Console.WriteLine($"Filme assistido: {filme.Titulo}\nAvaliação: {filme.Avaliacao}\nGenero: {generos}");
             Console.WriteLine("============================================");
         }
+        public static void PrintarFilmeRecomendado(Filme filme)
+        {
+            var generos = "";
+
+            foreach (var item in filme.Generos)
+            {
+                generos = generos + $"{item.Nome}, ";
+            }
+            Console.WriteLine("========================================================================");
+            Console.WriteLine($"Filme recomendado: {filme.Titulo}\nAvaliação: {filme.Avaliacao}\nGenero: {generos}");
+            Console.WriteLine("========================================================================");
+        }
         public static Filme BuscaPorNome(string nome, List<Filme> filmes)
         {
             return filmes.Where(x => x.Titulo == nome).FirstOrDefault();
         }
+    }
+
+
 }
