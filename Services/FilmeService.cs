@@ -68,10 +68,7 @@ namespace SistemaDeRecomendacao.Services
             }
             return filmesComEssesGeneros;
         }
-        public static Filme BuscarFilmePorId(int id, List<Filme> filmes)
-        {
-            return filmes.Where(f => f.Id == id).FirstOrDefault();
-        }
+
         public static void PrintarFilme(Filme filme)
         {
             var generos = "";
@@ -94,13 +91,19 @@ namespace SistemaDeRecomendacao.Services
             }
             Console.WriteLine("========================================================================");
             Console.WriteLine($"Filme recomendado: {filme.Titulo}\nAvaliação: {filme.Avaliacao}\nGenero: {generos}");
-            Console.WriteLine("========================================================================");
         }
         public static Filme BuscaPorNome(string nome, List<Filme> filmes)
         {
-            return filmes.Where(x => x.Titulo == nome).FirstOrDefault();
+            foreach (var filme in filmes)
+            {
+                var titulo = filme.Titulo.Trim().Split(" (");
+
+                if (titulo[0].Equals(nome, StringComparison.OrdinalIgnoreCase))
+                {
+                    return filme;
+                }
+            }
+            return null;
         }
     }
-
-
 }

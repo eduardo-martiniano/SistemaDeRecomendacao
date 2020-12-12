@@ -16,26 +16,27 @@ namespace RecomendacaoConsole
             var generosFavoritos = new List<Genero>();
             var filmesAssistidos = new List<Filme>();
 
-            var catalogo = FilmeService.CarregarFilmes(@"C:\Users\anton\Downloads\filmes.xlsx");
+            var catalogo = FilmeService.CarregarFilmes(@"C:\upload\filmes.xlsx");
 
             Console.WriteLine("Olá! Busque um filme por Nome:");
             var filmeNome = Console.ReadLine();
 
             var filme = FilmeService.BuscaPorNome(filmeNome, catalogo);
 
-            if (filme == null) Console.WriteLine("Filme não encontrado!");
-           
+            if (filme == null)
+            {
+                Console.WriteLine("Filme não encontrado!");
+                return;
+            }
             FilmeService.PrintarFilme(filme);
             filmesAssistidos.Add(filme);
 
             Console.WriteLine("Você curtiu esse filme? [s/n]");
             var resposta = Console.ReadLine();
 
-            if ( resposta == "s")
-            {
-                generosFavoritos = filme.Generos;
-            }
-            if (resposta == "n")
+            if (resposta.Equals("s", StringComparison.OrdinalIgnoreCase)) generosFavoritos = filme.Generos;
+
+            if (resposta.Equals("n", StringComparison.OrdinalIgnoreCase)) 
             {
                 while (true)
                 {
@@ -76,8 +77,6 @@ namespace RecomendacaoConsole
             {
                 FilmeService.PrintarFilmeRecomendado(ff);
             }
-                        
-            Console.WriteLine("Finished");
         }
     }
 }
